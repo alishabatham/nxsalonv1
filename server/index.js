@@ -33,6 +33,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Serverless DB Connection Middleware
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: 'Database connection failed. Please check MongoDB Atlas IP whitelist (0.0.0.0/0 allowed).'
+    });
+  }
+});
+
+
 // Routes imports
 const authRoutes = require('./routes/auth');
 const salonRoutes = require('./routes/salon');

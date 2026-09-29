@@ -1,4 +1,4 @@
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://nxsalonv1-server.vercel.app/api';
 
 export const fetchApi = async (endpoint, options = {}) => {
   const token = localStorage.getItem('nx_salon_token');
