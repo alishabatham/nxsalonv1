@@ -30,12 +30,9 @@ const seedData = async () => {
     await mongoose.connect(mongoUri);
     console.log('MongoDB Connected for Seeding...');
 
-    // Clear existing collections if desired, or check existing
-    const existingSalon = await Salon.findOne();
-    if (existingSalon) {
-      console.log('Database already contains salon setup. Skipping duplicate seed.');
-      process.exit(0);
-    }
+    // Clear existing collections to ensure fresh clean state
+    await mongoose.connection.dropDatabase();
+    console.log('Database reset for fresh initial seeding...');
 
     // 1. Create Salon
     const salon = await Salon.create({
@@ -263,7 +260,7 @@ const seedData = async () => {
       salonId: salon._id
     });
 
-    console.log('Seed completed successfully into MongoDB Atlas!');
+    console.log('Fresh Seed Completed Successfully!');
     process.exit(0);
 
   } catch (err) {
