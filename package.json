@@ -1,0 +1,11 @@
+{
+  "name": "nx-salon-os-v1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NX SALON OS V1 - Complete MERN Salon Management Platform",
+  "scripts": {
+    "server": "cd server && node index.js",
+    "client": "cd client && npm run dev",
+    "seed": "cd server && node seed.js"
+  }
+}
