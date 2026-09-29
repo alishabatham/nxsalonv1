@@ -61,10 +61,21 @@ app.use('/api/reports', reportRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/audit-logs', auditLogRoutes);
 
-// Health Check Route
+// Root Route for Vercel and Health Check (Spec Section 96)
+app.get('/', (req, res) => {
+  res.json({ 
+    success: true, 
+    system: 'NX SALON OS V1 Backend API', 
+    status: 'Running',
+    version: '1.0.0',
+    documentation: 'All API routes mounted under /api/...'
+  });
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', system: 'NX SALON OS V1 Backend', timestamp: new Date() });
 });
+
 
 // Human readable error handler middleware (Spec Section 96)
 app.use((err, req, res, next) => {
@@ -315,11 +326,18 @@ const autoSeedIfEmpty = async () => {
   }
 };
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 connectDB().then(async () => {
   await autoSeedIfEmpty();
-  app.listen(PORT, () => {
-    console.log(`NX SALON OS V1 Server running on port ${PORT}`);
-  });
+  if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => {
+      console.log(`NX SALON OS V1 Server running on port ${PORT}`);
+    });
+  }
+}).catch(err => {
+  console.error('DB connect err:', err);
 });
+
+module.exports = app;
+
