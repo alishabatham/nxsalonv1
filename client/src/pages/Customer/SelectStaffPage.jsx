@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchApi } from '../../api';
 import { useBooking } from '../../context/BookingContext';
 import { ArrowLeft, User, Scissors, ChevronRight } from 'lucide-react';
+import { CustomerStepper } from '../../components/CustomerStepper';
 
 export const SelectStaffPage = () => {
   const navigate = useNavigate();
@@ -36,14 +37,16 @@ export const SelectStaffPage = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 py-2">
-      <div className="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-xs space-y-6">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+    <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 py-2">
+      <CustomerStepper />
+
+      <div className="bg-white rounded-3xl border border-slate-200 p-5 sm:p-8 shadow-xs space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
           <div>
-            <h2 className="text-xl font-bold text-slate-900">Select Stylist / Staff (Screen 3)</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900">Select Stylist / Staff (Screen 3)</h2>
             <p className="text-xs text-slate-500 font-medium">Selected Service: <strong className="text-slate-900">{selectedService?.name}</strong> (₹{selectedService?.price})</p>
           </div>
-          <button onClick={() => navigate('/customer/services')} className="flex items-center gap-1 text-xs text-brand-600 font-semibold">
+          <button onClick={() => navigate('/customer/services')} className="self-start sm:self-auto flex items-center gap-1 text-xs text-brand-600 font-semibold">
             <ArrowLeft className="w-4 h-4" /> Change Service
           </button>
         </div>
@@ -51,7 +54,7 @@ export const SelectStaffPage = () => {
         {loading ? (
           <div className="py-12 text-center text-slate-400 text-xs">Loading available stylists...</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs">
             {/* Any Available Staff */}
             <div
               onClick={() => handleSelect('any')}
@@ -88,3 +91,4 @@ export const SelectStaffPage = () => {
     </div>
   );
 };
+

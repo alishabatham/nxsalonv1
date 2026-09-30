@@ -103,16 +103,16 @@ export const AppointmentDetailsPage = () => {
 
         {/* Self-Service Actions (Navigates to Screen 8: Cancel and Screen 9: Reschedule) */}
         {['Booked', 'Confirmed'].includes(appointment.status) && (
-          <div className="flex justify-center gap-3 pt-4 border-t border-slate-100">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 pt-4 border-t border-slate-100">
             <button
               onClick={() => navigate(`/customer/reschedule/${appointment._id}`)}
-              className="flex items-center gap-1.5 bg-brand-600 hover:bg-brand-700 text-white font-bold px-5 py-3 rounded-xl shadow-xs transition-colors"
+              className="flex items-center justify-center gap-1.5 bg-brand-600 hover:bg-brand-700 text-white font-bold px-5 py-3 rounded-xl shadow-xs transition-colors text-xs"
             >
               <RefreshCw className="w-4 h-4" /> Reschedule Appointment (Screen 9)
             </button>
             <button
               onClick={() => navigate(`/customer/cancel/${appointment._id}`)}
-              className="flex items-center gap-1.5 bg-rose-600 hover:bg-rose-700 text-white font-bold px-5 py-3 rounded-xl shadow-xs transition-colors"
+              className="flex items-center justify-center gap-1.5 bg-rose-600 hover:bg-rose-700 text-white font-bold px-5 py-3 rounded-xl shadow-xs transition-colors text-xs"
             >
               <XCircle className="w-4 h-4" /> Cancel Appointment (Screen 8)
             </button>

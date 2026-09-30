@@ -44,6 +44,7 @@ const AppContent = () => {
   const [isNewApptModalOpen, setIsNewApptModalOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isSetupWizardOpen, setIsSetupWizardOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [sidebarTab, setSidebarTab] = useState('dashboard');
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const AppContent = () => {
   // Handle Tab navigation from sidebar
   const handleSidebarTabChange = (tabId) => {
     setSidebarTab(tabId);
+    setIsMobileMenuOpen(false);
     if (tabId === 'dashboard') {
       if (user?.role === 'receptionist') navigate('/reception/dashboard');
       else if (user?.role === 'staff') navigate('/staff/dashboard');
@@ -81,6 +83,8 @@ const AppContent = () => {
       <Navbar
         onOpenNewAppt={() => setIsNewApptModalOpen(true)}
         onOpenNotifications={() => setIsNotificationsOpen(true)}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
       />
 
       <div className="flex-1 flex overflow-hidden">
@@ -89,10 +93,12 @@ const AppContent = () => {
             activeTab={sidebarTab}
             setActiveTab={handleSidebarTabChange}
             role={user.role}
+            isOpen={isMobileMenuOpen}
+            onClose={() => setIsMobileMenuOpen(false)}
           />
         )}
 
-        <main className="flex-1 p-4 lg:p-8 overflow-y-auto custom-scrollbar max-w-7xl mx-auto w-full">
+        <main className="flex-1 p-3 sm:p-6 lg:p-8 overflow-y-auto custom-scrollbar max-w-7xl mx-auto w-full">
           <Routes>
             {/* Root Route */}
             <Route path="/" element={<Navigate to="/customer/salon" replace />} />
